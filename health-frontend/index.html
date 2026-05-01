@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,19 +8,20 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
     <div class="container">
         <header>
             <h1>Symptoms Checker</h1>
             <p>Select your symptom below to get health insights</p>
         </header>
-        
+
         <main>
             <div id="loading" class="loading-state">
                 <div class="spinner"></div>
                 <p>Loading symptoms...</p>
             </div>
-            
+
             <div id="error-message" class="error-message hidden">
                 <p>Failed to load symptoms. Please make sure the backend is running.</p>
                 <button onclick="fetchSymptoms()" class="retry-btn">Retry</button>
@@ -28,7 +30,7 @@
             <div id="symptoms-grid" class="symptoms-grid hidden">
                 <!-- Buttons will be populated here -->
             </div>
-            
+
             <div id="result-section" class="result-section hidden">
                 <div class="result-header">
                     <h2 id="result-title">Symptom Details</h2>
@@ -44,9 +46,10 @@
             </div>
         </main>
     </div>
-    
+
     <!-- We'll use marked.js to render the Markdown from Gemini -->
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <script src="script.js"></script>
 </body>
+
 </html>

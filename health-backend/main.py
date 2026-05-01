@@ -1,14 +1,9 @@
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
-from pydantic import BaseModel
 from db import get_connection
 from gemini_client import ask_gemini
 
 app = FastAPI()
-
-class PromptRequest(BaseModel):
-    prompt: str
-
 
 # Add CORS middleware
 app.add_middleware(
@@ -28,6 +23,22 @@ def get_all_prompts():
     cursor.close()
     conn.close()
     return rows
+
+@app.post("/ask")
+def ask_ai(request: PromptRequest):
+    final_prompt =f"""
+    You are a medical assistant AI. 
+    Return a short, clear, helpful answer including one paragraph descriptionalong with possible diseases of the symptom and cure.
+    Avoid unnecessary details. Use simple language suitable for normal patients.
+    Topic: {request.prompt}
+    """
+
+    llm_response = ask_gemini(final_prompt)
+
+    return {
+        "prompt": request.prompt,
+        "output": llm_response
+    }
 
 @app.get("/get/{prompt_id}")
 def run_prompt(prompt_id: int):
