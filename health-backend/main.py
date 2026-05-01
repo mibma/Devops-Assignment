@@ -2,6 +2,10 @@ from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from db import get_connection
 from gemini_client import ask_gemini
+from pydantic import BaseModel
+
+class PromptRequest(BaseModel):
+    prompt: str
 
 app = FastAPI()
 
