@@ -1,13 +1,130 @@
 const API_BASE_URL = 'http://127.0.0.1:8000';
 
+// ============================================================
+// Initialization
+// ============================================================
 document.addEventListener('DOMContentLoaded', () => {
     fetchSymptoms();
 
     document.getElementById('close-result').addEventListener('click', () => {
         document.getElementById('result-section').classList.add('hidden');
     });
+
+    // ----------------------------------------------------------
+    // File upload area interactions
+    // ----------------------------------------------------------
+    const uploadArea = document.getElementById('upload-area');
+    const fileInput = document.getElementById('file-input');
+
+    // Click to open file picker
+    uploadArea.addEventListener('click', () => fileInput.click());
+
+    // When a file is selected via the file picker
+    fileInput.addEventListener('change', () => {
+        if (fileInput.files.length > 0) {
+            showSelectedFile(fileInput.files[0]);
+        }
+    });
+
+    // Drag & drop support
+    uploadArea.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        uploadArea.classList.add('drag-over');
+    });
+
+    uploadArea.addEventListener('dragleave', () => {
+        uploadArea.classList.remove('drag-over');
+    });
+
+    uploadArea.addEventListener('drop', (e) => {
+        e.preventDefault();
+        uploadArea.classList.remove('drag-over');
+        if (e.dataTransfer.files.length > 0) {
+            fileInput.files = e.dataTransfer.files;
+            showSelectedFile(e.dataTransfer.files[0]);
+        }
+    });
 });
 
+// ============================================================
+// File upload helpers
+// ============================================================
+function showSelectedFile(file) {
+    const nameEl = document.getElementById('selected-file-name');
+    const uploadBtn = document.getElementById('upload-btn');
+
+    // Reset previous status messages
+    document.getElementById('upload-success').classList.add('hidden');
+    document.getElementById('upload-error').classList.add('hidden');
+
+    if (!file.name.endsWith('.txt')) {
+        document.getElementById('upload-error-msg').textContent = '❌ Only .txt files are allowed.';
+        document.getElementById('upload-error').classList.remove('hidden');
+        uploadBtn.classList.add('hidden');
+        return;
+    }
+
+    nameEl.textContent = `Selected: ${file.name} (${(file.size / 1024).toFixed(1)} KB)`;
+    nameEl.classList.remove('hidden');
+    uploadBtn.classList.remove('hidden');
+}
+
+async function uploadFile() {
+    const fileInput = document.getElementById('file-input');
+    const uploadBtn = document.getElementById('upload-btn');
+    const btnText = document.getElementById('upload-btn-text');
+    const btnSpinner = document.getElementById('upload-spinner');
+    const successEl = document.getElementById('upload-success');
+    const errorEl = document.getElementById('upload-error');
+
+    if (!fileInput.files || fileInput.files.length === 0) {
+        alert('Please select a file first.');
+        return;
+    }
+
+    const file = fileInput.files[0];
+
+    // Show loading state
+    btnText.textContent = 'Uploading...';
+    btnSpinner.classList.remove('hidden');
+    uploadBtn.disabled = true;
+    successEl.classList.add('hidden');
+    errorEl.classList.add('hidden');
+
+    try {
+        const formData = new FormData();
+        formData.append('file', file);
+
+        const response = await fetch(`${API_BASE_URL}/upload-prompt`, {
+            method: 'POST',
+            body: formData,
+        });
+
+        if (!response.ok) {
+            const errData = await response.json();
+            throw new Error(errData.detail || 'Upload failed');
+        }
+
+        // Success!
+        successEl.classList.remove('hidden');
+        fileInput.value = '';
+        document.getElementById('selected-file-name').classList.add('hidden');
+        uploadBtn.classList.add('hidden');
+
+    } catch (error) {
+        console.error('Upload error:', error);
+        document.getElementById('upload-error-msg').textContent = `❌ ${error.message}`;
+        errorEl.classList.remove('hidden');
+    } finally {
+        btnText.textContent = 'Upload to S3';
+        btnSpinner.classList.add('hidden');
+        uploadBtn.disabled = false;
+    }
+}
+
+// ============================================================
+// Existing symptom fetching (unchanged)
+// ============================================================
 async function fetchSymptoms() {
     const loading = document.getElementById('loading');
     const errorMsg = document.getElementById('error-message');

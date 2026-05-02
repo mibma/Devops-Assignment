@@ -10,6 +10,17 @@
 </head>
 
 <body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-brand">🩺 Health AI</a>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link active">Home</a>
+                <a href="results.html" class="nav-link">Results</a>
+            </div>
+        </div>
+    </nav>
+
     <div class="container">
         <header>
             <h1>Symptoms Checker</h1>
@@ -17,19 +28,55 @@
         </header>
 
         <main>
-            <div id="loading" class="loading-state">
-                <div class="spinner"></div>
-                <p>Loading symptoms...</p>
-            </div>
+            <!-- ==================== S3 Upload Section ==================== -->
+            <section class="upload-section">
+                <h2>📄 Upload a Prompt File</h2>
+                <p class="upload-description">
+                    Upload a <code>.txt</code> file containing your symptom description.
+                    It will be processed by AI and the result will appear on the
+                    <a href="results.html">Results</a> page.
+                </p>
 
-            <div id="error-message" class="error-message hidden">
-                <p>Failed to load symptoms. Please make sure the backend is running.</p>
-                <button onclick="fetchSymptoms()" class="retry-btn">Retry</button>
-            </div>
+                <div class="upload-area" id="upload-area">
+                    <input type="file" id="file-input" accept=".txt" hidden>
+                    <div class="upload-icon">⬆️</div>
+                    <p class="upload-text">Click to select a <strong>.txt</strong> file or drag & drop</p>
+                    <p id="selected-file-name" class="selected-file hidden"></p>
+                </div>
 
-            <div id="symptoms-grid" class="symptoms-grid hidden">
-                <!-- Buttons will be populated here -->
-            </div>
+                <button id="upload-btn" class="upload-btn hidden" onclick="uploadFile()">
+                    <span id="upload-btn-text">Upload to S3</span>
+                    <div id="upload-spinner" class="btn-spinner hidden"></div>
+                </button>
+
+                <div id="upload-success" class="upload-success hidden">
+                    <p>✅ File uploaded successfully! The AI is processing your prompt.</p>
+                    <a href="results.html" class="view-results-link">View Results →</a>
+                </div>
+
+                <div id="upload-error" class="upload-error hidden">
+                    <p id="upload-error-msg">❌ Upload failed.</p>
+                </div>
+            </section>
+
+            <!-- ==================== Existing Symptoms Section ==================== -->
+            <section class="symptoms-section">
+                <h2>Or choose a symptom</h2>
+
+                <div id="loading" class="loading-state">
+                    <div class="spinner"></div>
+                    <p>Loading symptoms...</p>
+                </div>
+
+                <div id="error-message" class="error-message hidden">
+                    <p>Failed to load symptoms. Please make sure the backend is running.</p>
+                    <button onclick="fetchSymptoms()" class="retry-btn">Retry</button>
+                </div>
+
+                <div id="symptoms-grid" class="symptoms-grid hidden">
+                    <!-- Buttons will be populated here -->
+                </div>
+            </section>
 
             <div id="result-section" class="result-section hidden">
                 <div class="result-header">

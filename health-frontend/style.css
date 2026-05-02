@@ -7,6 +7,9 @@
     --text-muted: #6B7280;
     --border: #E5E7EB;
     --danger: #EF4444;
+    --success: #10B981;
+    --success-bg: #ECFDF5;
+    --success-border: #6EE7B7;
 }
 
 * {
@@ -21,12 +24,68 @@ body {
     color: var(--text-main);
     line-height: 1.5;
     min-height: 100vh;
-    padding: 2rem;
+    padding: 0;
+}
+
+/* ================================================
+   Navigation Bar
+   ================================================ */
+.navbar {
+    background-color: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 0 2rem;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+}
+
+.nav-container {
+    max-width: 800px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 60px;
+}
+
+.nav-brand {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text-main);
+    text-decoration: none;
+    letter-spacing: -0.025em;
+}
+
+.nav-links {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: var(--text-muted);
+    font-weight: 500;
+    font-size: 0.95rem;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    transition: all 0.2s;
+}
+
+.nav-link:hover {
+    color: var(--primary);
+    background-color: #EEF2FF;
+}
+
+.nav-link.active {
+    color: var(--primary);
+    background-color: #EEF2FF;
 }
 
 .container {
     max-width: 800px;
     margin: 0 auto;
+    padding: 2rem;
 }
 
 header {
@@ -45,6 +104,167 @@ h1 {
 header p {
     color: var(--text-muted);
     font-size: 1.125rem;
+}
+
+/* ================================================
+   Upload Section
+   ================================================ */
+.upload-section {
+    background-color: var(--surface);
+    border-radius: 1rem;
+    padding: 2rem;
+    margin-bottom: 3rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+    border: 1px solid var(--border);
+}
+
+.upload-section h2 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.upload-description {
+    color: var(--text-muted);
+    margin-bottom: 1.5rem;
+    font-size: 0.95rem;
+}
+
+.upload-description code {
+    background-color: #F3F4F6;
+    padding: 0.15rem 0.4rem;
+    border-radius: 0.25rem;
+    font-size: 0.9em;
+    color: var(--primary);
+}
+
+.upload-description a {
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.upload-description a:hover {
+    text-decoration: underline;
+}
+
+.upload-area {
+    border: 2px dashed var(--border);
+    border-radius: 0.75rem;
+    padding: 2.5rem;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    background-color: #FAFAFA;
+}
+
+.upload-area:hover, .upload-area.drag-over {
+    border-color: var(--primary);
+    background-color: #EEF2FF;
+}
+
+.upload-icon {
+    font-size: 2rem;
+    margin-bottom: 0.75rem;
+}
+
+.upload-text {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+}
+
+.selected-file {
+    margin-top: 0.75rem;
+    color: var(--primary);
+    font-weight: 500;
+    font-size: 0.9rem;
+}
+
+.upload-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    width: 100%;
+    margin-top: 1rem;
+    padding: 0.875rem 1.5rem;
+    background-color: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.upload-btn:hover {
+    background-color: var(--primary-hover);
+}
+
+.upload-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.btn-spinner {
+    width: 18px;
+    height: 18px;
+    border: 2px solid rgba(255,255,255,0.3);
+    border-top-color: white;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+.upload-success {
+    margin-top: 1rem;
+    padding: 1rem 1.5rem;
+    background-color: var(--success-bg);
+    border: 1px solid var(--success-border);
+    border-radius: 0.5rem;
+    text-align: center;
+}
+
+.upload-success p {
+    color: #065F46;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+}
+
+.view-results-link {
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.view-results-link:hover {
+    text-decoration: underline;
+}
+
+.upload-error {
+    margin-top: 1rem;
+    padding: 1rem 1.5rem;
+    background-color: #FEF2F2;
+    border: 1px solid #F87171;
+    border-radius: 0.5rem;
+    text-align: center;
+    color: var(--danger);
+    font-weight: 500;
+}
+
+/* ================================================
+   Symptoms Section
+   ================================================ */
+.symptoms-section {
+    margin-bottom: 2rem;
+}
+
+.symptoms-section h2 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    color: var(--text-muted);
 }
 
 /* Loading State */
@@ -245,4 +465,280 @@ header p {
     color: var(--text-muted);
     font-style: italic;
     margin: 1.5em 0;
+}
+
+/* ================================================
+   Results Page
+   ================================================ */
+.results-toolbar {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 1.5rem;
+}
+
+.refresh-btn {
+    background-color: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--text-main);
+    padding: 0.625rem 1.25rem;
+    border-radius: 0.5rem;
+    font-size: 0.95rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.refresh-btn:hover {
+    border-color: var(--primary);
+    color: var(--primary);
+    background-color: #EEF2FF;
+}
+
+/* Empty state */
+.empty-state {
+    text-align: center;
+    padding: 4rem 2rem;
+    background-color: var(--surface);
+    border-radius: 1rem;
+    border: 1px solid var(--border);
+}
+
+.empty-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.empty-state h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: var(--text-main);
+}
+
+.empty-state p {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+}
+
+.empty-state a {
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.empty-state a:hover {
+    text-decoration: underline;
+}
+
+/* Results list */
+.results-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.result-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 0.75rem;
+    padding: 1.25rem 1.5rem;
+    transition: all 0.2s;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+}
+
+.result-card:hover {
+    border-color: var(--primary);
+    box-shadow: 0 4px 12px rgba(79, 70, 229, 0.08);
+    transform: translateY(-1px);
+}
+
+.result-card-info {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex: 1;
+    min-width: 0;
+}
+
+.result-card-icon {
+    font-size: 1.5rem;
+    flex-shrink: 0;
+}
+
+.result-card-details {
+    min-width: 0;
+}
+
+.result-card-name {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text-main);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.result-card-meta {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-top: 0.15rem;
+}
+
+.result-card-actions {
+    display: flex;
+    gap: 0.5rem;
+    flex-shrink: 0;
+    margin-left: 1rem;
+}
+
+.preview-btn, .download-btn {
+    padding: 0.5rem 1rem;
+    border-radius: 0.375rem;
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-decoration: none;
+    border: 1px solid var(--border);
+    background-color: var(--surface);
+    color: var(--text-main);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+}
+
+.preview-btn:hover {
+    border-color: var(--primary);
+    color: var(--primary);
+    background-color: #EEF2FF;
+}
+
+.download-btn {
+    background-color: var(--primary);
+    color: white;
+    border-color: var(--primary);
+}
+
+.download-btn:hover {
+    background-color: var(--primary-hover);
+    border-color: var(--primary-hover);
+    color: white;
+}
+
+/* ================================================
+   Preview Modal
+   ================================================ */
+.preview-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 200;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.preview-modal-backdrop {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.preview-modal-content {
+    position: relative;
+    background-color: var(--surface);
+    border-radius: 1rem;
+    width: 90%;
+    max-width: 700px;
+    max-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    animation: slideUp 0.3s ease-out;
+}
+
+.preview-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.25rem 1.5rem;
+    border-bottom: 1px solid var(--border);
+}
+
+.preview-modal-header h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-main);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.preview-modal-body {
+    padding: 1.5rem;
+    overflow-y: auto;
+    flex: 1;
+}
+
+.preview-text {
+    font-family: 'Courier New', monospace;
+    font-size: 0.85rem;
+    line-height: 1.6;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    color: var(--text-main);
+    background-color: #F9FAFB;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    border: 1px solid var(--border);
+}
+
+.preview-modal-footer {
+    padding: 1rem 1.5rem;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: flex-end;
+}
+
+/* ================================================
+   Responsive adjustments
+   ================================================ */
+@media (max-width: 600px) {
+    .result-card {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+
+    .result-card-actions {
+        margin-left: 0;
+        width: 100%;
+    }
+
+    .result-card-actions .preview-btn,
+    .result-card-actions .download-btn {
+        flex: 1;
+        justify-content: center;
+    }
+
+    .nav-container {
+        height: auto;
+        padding: 0.75rem 0;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
 }

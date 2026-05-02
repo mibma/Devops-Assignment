@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Results - Health AI</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-brand">🩺 Health AI</a>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="results.html" class="nav-link active">Results</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <header>
+            <h1>AI Processing Results</h1>
+            <p>Download processed results from S3</p>
+        </header>
+
+        <main>
+            <!-- Refresh button -->
+            <div class="results-toolbar">
+                <button onclick="fetchResults()" class="refresh-btn">
+                    🔄 Refresh Results
+                </button>
+            </div>
+
+            <!-- Loading state -->
+            <div id="results-loading" class="loading-state">
+                <div class="spinner"></div>
+                <p>Loading results from S3...</p>
+            </div>
+
+            <!-- Error state -->
+            <div id="results-error" class="error-message hidden">
+                <p id="results-error-msg">Failed to load results.</p>
+                <button onclick="fetchResults()" class="retry-btn">Retry</button>
+            </div>
+
+            <!-- Empty state -->
+            <div id="results-empty" class="empty-state hidden">
+                <div class="empty-icon">📭</div>
+                <h3>No results yet</h3>
+                <p>Upload a prompt file on the <a href="index.html">Home</a> page and wait a few seconds for the AI to process it.</p>
+            </div>
+
+            <!-- Results list -->
+            <div id="results-list" class="results-list hidden">
+                <!-- Result cards will be populated here -->
+            </div>
+        </main>
+    </div>
+
+    <script src="results.js"></script>
+</body>
+
+</html>
