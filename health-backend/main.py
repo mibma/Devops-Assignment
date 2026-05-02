@@ -224,3 +224,9 @@ def download_result(filename: str):
             "Content-Disposition": f'attachment; filename="{filename}"'
         },
     )
+
+# ==================================================
+# Serve the frontend (must be LAST – catches all other routes)
+# ==================================================
+from fastapi.staticfiles import StaticFiles
+app.mount("/", StaticFiles(directory="../health-frontend", html=True), name="frontend")
